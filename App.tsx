@@ -13,8 +13,9 @@ import {
   Box,
   Container
 } from "native-base";
-import NativeBaseIcon from "./components/NativeBaseIcon";
+import SearchControls from "./components/SearchControls";
 import SearchResults from "./components/SearchResults";
+import { PlayerDataField } from './types';
 
 // Define the config
 const config = {
@@ -28,7 +29,27 @@ type MyThemeType = typeof theme;
 declare module "native-base" {
   interface ICustomTheme extends MyThemeType {}
 }
+
+export type SortOrder = 'asc' | 'desc';
+export type SortField = PlayerDataField;
+
 export default function App() {
+  const [ search, setSearch ] = useState('');
+  const [ limit, setLimit ] = useState(24);
+  const [ page, setPage ] = useState(1);
+  const [ sort, setSort ] = useState('-total_score');
+
+  const appProps = {
+    search,
+    limit,
+    page,
+    sort,
+    setSearch,
+    setLimit,
+    setPage,
+    setSort,
+  };
+
   return (
     <NativeBaseProvider>
       <Center
@@ -37,7 +58,8 @@ export default function App() {
         px={4}
         flex={1}
       >
-        <SearchResults />
+        <SearchControls {...appProps} />
+        <SearchResults {...appProps} />
       </Center>
     </NativeBaseProvider>
   );

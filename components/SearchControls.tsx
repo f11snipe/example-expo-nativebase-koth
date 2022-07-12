@@ -1,64 +1,26 @@
-import { useMemo } from 'react';
+import { useState } from 'react';
 // import { StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
-import { VStack, HStack, Heading, Text, Image, Center, AspectRatio } from 'native-base';
+import { VStack, HStack, Center, Text, Input, Icon } from 'native-base';
+import { MaterialIcons } from '@expo/vector-icons';
 import CountryFlag from 'react-native-country-flag';
 import { useAxios } from '../hooks';
-import { ApiPlayerList, PlayerDataField } from '../types';
-import ResultData from './ResultData';
+import { AppProps } from '../types';
+import { playerDataItems } from '../data';
 
-export interface DataItem {
-  label: string;
-  field: PlayerDataField;
-  format: (val: string|number) => string|number;
-}
+export default function SearchControls(props: AppProps) {
+  const [ value, setValue ] = useState(props.search);
+  const SearchIcon = () => <Icon m="2" ml="3" size="6" color="gray.400" as={<MaterialIcons name="search" />} />;
 
-export interface SearchControlsProps {
-  search?: string;
-  limit?: number;
-  page?: number;
-  sort?: string;
-}
-
-export default function SearchControls(props: SearchControlsProps) {
-  const { search = '', limit = 10, page = 1, sort = '-total_king' } = props;
-  const { data, error, loaded } = useAxios<ApiPlayerList>(`players?filter[search]=${search}&page[size]=${limit}&page[number]=${page}&sort=${sort}`);
-
-  const formatInteger = (val: string|number): string|number => val.toString();
-  const formatFloat = (val: string|number): string|number => typeof val === 'string' ? parseFloat(val).toFixed(2) : val.toFixed(2);
-
-  const items: DataItem[] = [
-    { label: 'Games Played', field: 'num_games', format: formatInteger },
-    { label: 'Average Rank', field: 'avg_rank', format: formatFloat },
-    { label: 'Average Score', field: 'avg_score', format: formatFloat },
-    // { label: 'Total Score', field: 'total_score', format: formatInteger },
-    { label: 'Average King', field: 'avg_king', format: formatFloat },
-    // { label: 'Total King', field: 'total_king', format: formatInteger },
-    { label: 'Average Flags', field: 'avg_flags', format: formatFloat },
-    // { label: 'Total Flags', field: 'total_flags', format: formatInteger },
-  ];
-
-  if (loaded) {
-    return error ? (
-      <Text>Error: {error}</Text>
-    ) : (
-      <VStack w="100%" space={5} alignItems="center">
-        {data?.data && data.data.map((row, i) => (
-          <VStack key={i} space={3} alignItems="center">
-            <HStack space={2} alignItems="center">
-              <AspectRatio ratio={{ base: 1/1 }} height={{ base: 25 }}>
-                <Image resizeMode='cover' source={{ uri: row.attributes.avatar }} alt={row.attributes.username} />
-              </AspectRatio>
-              <Heading size={"md"}>{row.attributes.username}</Heading>
-              <CountryFlag isoCode={row.attributes.country} size={10} />
-            </HStack>
-            {items.map((item, j) => (
-              <ResultData key={j} label={item.label} data={item.format(row.attributes[item.field])} />
-            ))}
-          </VStack>
-        ))}
-      </VStack>
-    );
+  const doSearch = () => {
+    props.setSearch(value)
+    props.setPage(1);
   }
 
-  return <Text>Loading...</Text>;
+  return (
+    <Center mt={10}>
+      <VStack space={5} alignSelf="center">
+        <Input variant={'underlined'} placeholder={'Search Players'} InputLeftElement={<SearchIcon />} value={value} onChangeText={val => setValue(val)} onBlur={doSearch} />
+      </VStack>
+    </Center>
+  );
 }

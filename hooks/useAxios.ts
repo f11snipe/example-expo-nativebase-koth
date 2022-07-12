@@ -18,6 +18,10 @@ export const useAxios = <T>(route: string, method = 'GET', payload?: string) => 
 
   useEffect(() => {
     (async () => {
+      setData(null);
+      setError('');
+      setLoaded(false);
+
       try {
         const response = await axios.request({
           data: payload,
@@ -33,7 +37,7 @@ export const useAxios = <T>(route: string, method = 'GET', payload?: string) => 
         setLoaded(true);
       }
     })();
-  }, []);
+  }, [ route, method, payload ]);
 
   return { cancel, data, error, loaded };
 };

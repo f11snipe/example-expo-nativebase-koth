@@ -2,6 +2,7 @@
   "name": "example-expo-nativebase-koth",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
+  "homepage": "/",
   "keywords": [
     "react",
     "expo",
@@ -38,9 +39,8 @@
     "typescript": "~4.3.5"
   },
   "bugs": {
-    "url": "https://github.com/GeekyAnts/nativebase-templates/issues"
+    "url": "https://github.com/f11snipe/example-expo-nativebase-koth/issues"
   },
-  "homepage": "https://github.com/GeekyAnts/nativebase-templates#readme",
-  "author": "Aditya Jamuar",
+  "author": "F11snipe",
   "private": true
 }

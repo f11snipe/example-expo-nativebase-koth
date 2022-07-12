@@ -1,19 +1,12 @@
 import { useEffect, useState } from 'react';
-import { VStack, Heading, Text, View, ScrollView } from 'native-base';
+import { VStack, HStack, Heading, Text, View, ScrollView, Button, Spinner } from 'native-base';
 import { useBreakpointValue } from 'native-base';
 import { useAxios } from '../hooks';
-import { ApiPlayerList, PlayerData } from '../types';
+import { ApiPlayerList, PlayerData, AppProps } from '../types';
 import PlayerRow from './PlayerRow';
 
-export interface SearchResultsProps {
-  search?: string;
-  limit?: number;
-  page?: number;
-  sort?: string;
-}
-
-export default function SearchResults(props: SearchResultsProps) {
-  const { search = '', limit = 24, page = 1, sort = '-total_king' } = props;
+export default function SearchResults(props: AppProps) {
+  const { search, limit, page, sort } = props;
   const { data, error, loaded } = useAxios<ApiPlayerList>(`players?filter[search]=${search}&page[size]=${limit}&page[number]=${page}&sort=${sort}`);
   const [ playerData, setPlayerData ] = useState<PlayerData[][]>([]);
 
@@ -46,13 +39,29 @@ export default function SearchResults(props: SearchResultsProps) {
     setPlayerData(results);
   }, [ data, flexCols ]);
 
+  const prevPage = () => props.setPage(props.page - 1);
+  const nextPage = () => props.setPage(props.page + 1);
+
+  const Pagination = () => (
+    <HStack space={4} alignItems='center'>
+      <Button size={'sm'} colorScheme={'info'} isDisabled={!!data?.meta?.pagination?.page && data?.meta?.pagination?.page <= 1} onPress={prevPage}>
+        prev
+      </Button>
+      <Text fontSize={'sm'} color='muted.400'>Page {data?.meta?.pagination?.page} of {data?.meta?.pagination?.pages}</Text>
+      <Button size={'sm'} colorScheme={'info'} isDisabled={data?.meta?.pagination?.page == data?.meta?.pagination?.pages} onPress={nextPage}>
+        next
+      </Button>
+    </HStack>
+  );
+
   if (loaded) {
     return error ? (
-      <Text>Error: {error}</Text>
+      <Heading>Error: {error}</Heading>
     ) : (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <VStack py="8" space={8} alignItems="center" justifyContent="center">
-          <Heading>THM KoTH Players</Heading>
+        <VStack py="4" space={4} alignItems="center" justifyContent="center">
+          <Heading size={'sm'}>{data?.meta?.pagination?.count} Players</Heading>
+          <Pagination />
           <View style={{
             flexDirection: "column"
           }}>
@@ -60,10 +69,18 @@ export default function SearchResults(props: SearchResultsProps) {
               <PlayerRow key={i} players={players} />
             ))}
           </View>
+          <Pagination />
         </VStack>
       </ScrollView>
     );
   }
 
-  return <Text>Loading...</Text>;
+  return (
+    <HStack mt={10} space={2} justifyContent="center">
+      <Spinner accessibilityLabel="Loading players" />
+      <Heading color="primary.500" fontSize="lg">
+        Loading
+      </Heading>
+    </HStack>
+  );
 }
