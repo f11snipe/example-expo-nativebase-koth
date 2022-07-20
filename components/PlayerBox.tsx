@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { HStack, Badge, Box, Text, Icon, AspectRatio, Image, Stack, Center } from 'native-base';
 import CountryFlag from 'react-native-country-flag';
 import { PlayerData } from '../types';
@@ -22,7 +23,7 @@ export default function PlayerBox(props: PlayerBoxProps) {
         backgroundColor: "gray.50"
       }}>
         <Box>
-          <AspectRatio w="100%" ratio={5/4}>
+          <AspectRatio w="100%" minWidth={'230px'} ratio={5/4}>
             <Image source={{
               uri: player.avatar
             }} alt={player.username} />

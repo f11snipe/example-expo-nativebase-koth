@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { VStack, HStack, Heading, Text, View, ScrollView, Button, Spinner } from 'native-base';
 import { useBreakpointValue } from 'native-base';
 import { useAxios } from '../hooks';
-import { ApiPlayerList, PlayerData, AppProps } from '../types';
-import PlayerRow from './PlayerRow';
+import { ApiGameList, GameData, AppProps } from '../types';
+import GameBox from './GameBox';
 
-export default function SearchResults(props: AppProps) {
+export default function GameResults(props: AppProps) {
   const { search, limit, page, sort } = props;
-  const { data, error, loaded } = useAxios<ApiPlayerList>(`players?filter[search]=${search}&page[size]=${limit}&page[number]=${page}&sort=${sort}`);
-  const [ playerData, setPlayerData ] = useState<PlayerData[][]>([]);
+  const { data, error, loaded } = useAxios<ApiGameList>(`games/?filter[search]=${search}&page[size]=${limit}&page[number]=${page}&sort=${sort}`);
+  const [ gameData, setGameData ] = useState<GameData[]>([]);
 
   const flexCols = useBreakpointValue({
     base: 1,
@@ -18,25 +18,13 @@ export default function SearchResults(props: AppProps) {
   });
 
   useEffect(() => {
-    const results: PlayerData[][] = [];
+    let results: GameData[] = [];
 
     if (data?.data?.length) {
-      for (let i = 0; i < data?.data.length; i+=flexCols) {
-        const group: PlayerData[] = [];
-
-        for (let j = i; j < i+flexCols; j++) {
-          if (data.data[j]) {
-            group.push(data.data[j].attributes);
-          } else {
-            console.warn(`Missing group player: [${i}][${j}]`);
-          }
-        }
-
-        results.push(group);
-      }
+      results = data.data.map(row => row.attributes);
     }
 
-    setPlayerData(results);
+    setGameData(results);
   }, [ data, flexCols ]);
 
   const prevPage = () => props.setPage(props.page - 1);
@@ -65,8 +53,8 @@ export default function SearchResults(props: AppProps) {
           <View style={{
             flexDirection: "column"
           }}>
-            {playerData.map((players, i) => (
-              <PlayerRow key={i} players={players} />
+            {gameData.map((game, i) => (
+              <GameBox key={i} game={game} />
             ))}
           </View>
           <Pagination />
