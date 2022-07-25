@@ -48,7 +48,7 @@ export default function GameResults(props: AppProps) {
     ) : (
       <ScrollView showsVerticalScrollIndicator={false}>
         <VStack py="4" space={4} alignItems="center" justifyContent="center">
-          <Heading size={'sm'}>{data?.meta?.pagination?.count} Players</Heading>
+          <Heading size={'sm'}>{data?.meta?.pagination?.count} Games</Heading>
           <Pagination />
           <View style={{
             flexDirection: "column"
@@ -65,7 +65,7 @@ export default function GameResults(props: AppProps) {
 
   return (
     <HStack mt={10} space={2} justifyContent="center">
-      <Spinner accessibilityLabel="Loading players" />
+      <Spinner accessibilityLabel="Loading games" />
       <Heading color="primary.500" fontSize="lg">
         Loading
       </Heading>

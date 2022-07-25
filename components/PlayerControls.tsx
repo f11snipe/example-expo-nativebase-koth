@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 // import { StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
 import { VStack, HStack, Center, Text, Input, Icon } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';

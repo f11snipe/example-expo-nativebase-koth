@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { HStack, Badge, Box, Text, Icon, AspectRatio, Image, Stack, Center } from 'native-base';
 import CountryFlag from 'react-native-country-flag';
 import { PlayerData } from '../types';

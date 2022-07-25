@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Heading, Divider, Center, Text } from 'native-base';
 import { RootStackScreenProps } from '../types';

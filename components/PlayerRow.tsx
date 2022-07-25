@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import { ScrollView, VStack, Heading, View, Icon, Text } from 'native-base';
 import { useBreakpointValue } from 'native-base';
 import { MaterialIcons, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';

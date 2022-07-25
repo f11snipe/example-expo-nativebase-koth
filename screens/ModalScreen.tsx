@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Platform } from 'react-native';
 import { Heading, Divider, Center, useTheme } from 'native-base';

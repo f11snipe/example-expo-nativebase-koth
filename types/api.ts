@@ -11,11 +11,14 @@ export interface BoxData {
   flags: number;
 }
 
-export interface PlayerData {
+export interface PlayerAttributes {
   level: number;
   avatar: string;
   username: string;
   country: string;
+}
+
+export interface PlayerData extends PlayerAttributes {
   num_games: number;
   avg_rank: number;
   avg_score: number;
@@ -28,6 +31,15 @@ export interface PlayerData {
 
 export type PlayerDataField = keyof PlayerData & string;
 
+export interface GamePlayerData {
+  game: string;
+  player: PlayerAttributes;
+  score: number;
+  flags: number;
+  rank: number;
+  king: number;
+}
+
 export interface GameData {
   started_at: Date;
   finished_at?: Date;
@@ -38,6 +50,8 @@ export interface GameData {
   king_changes: number;
   resets: number;
   creator_name: string;
+  box: BoxData;
+  gameplayers: GamePlayerData[];
 }
 
 export interface ApiData<T> {
