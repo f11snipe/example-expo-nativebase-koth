@@ -8,7 +8,8 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 // import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { AddIcon } from 'native-base';
+import { Icon } from 'native-base';
+import { FontAwesome5 } from '@expo/vector-icons';
 // import { ColorSchemeName, Pressable } from 'react-native';
 import { Colors } from '../constants';
 import useColorScheme from '../hooks/useColorScheme';
@@ -36,7 +37,8 @@ export const BottomTabNavigator = () => {
         component={PlayerStatsScreen}
         options={{
           title: 'Players',
-          tabBarIcon: ({ color }) => <AddIcon color="muted.900" />,
+          tabBarIcon: ({ color }) => <Icon as={FontAwesome5} name={'user'} color={'violet.600'} size={'sm'} mr={2} />,
+          headerRight: () => <Icon as={FontAwesome5} name={'user'} color={'violet.600'} size={'lg'} mr={4} />,
         }}
       />
       <BottomTab.Screen
@@ -44,7 +46,8 @@ export const BottomTabNavigator = () => {
         component={GameStatsScreen}
         options={{
           title: 'Games',
-          tabBarIcon: ({ color }) => <AddIcon color="muted.900" />,
+          tabBarIcon: ({ color }) => <Icon as={FontAwesome5} name={'chart-line'} color={'amber.600'} size={'sm'} mr={2} />,
+          headerRight: () => <Icon as={FontAwesome5} name={'chart-line'} color={'amber.600'} size={'lg'} mr={4} />,
         }}
       />
     </BottomTab.Navigator>
