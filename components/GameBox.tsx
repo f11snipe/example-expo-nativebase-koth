@@ -55,7 +55,7 @@ export default function GameBox(props: GameBoxProps) {
           <Text color="coolGray.600" _dark={{
             color: "warmGray.200"
           }} fontWeight="400">
-            {Moment(game.started_at).format('MMM d YYYY')}
+            {Moment(game.started_at).format('MMM Do YYYY')}
           </Text>
           <Text color={'danger.600'}>
             {game.resets} resets
