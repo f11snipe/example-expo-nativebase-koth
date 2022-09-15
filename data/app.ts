@@ -10,7 +10,7 @@ export const playerDataItems: PlayerDataItem[] = [
   { label: 'Average Score', field: 'avg_score', format: formatFloat, iconType: MaterialIcons, iconName: 'score', iconColor: 'primary.600' },
   { label: 'Total Score', field: 'total_score', format: formatInteger, iconType: MaterialCommunityIcons, iconName: 'scoreboard', iconColor: 'primary.600' },
   { label: 'Average King', field: 'avg_king', format: formatFloat, iconType: MaterialCommunityIcons, iconName: 'crown', iconColor: 'primary.600' }, // crown
-  { label: 'Total King', field: 'total_king', format: formatInteger, iconType: MaterialCommunityIcons, iconName: 'shield-crown', iconColor: 'primary.600' },
+  { label: 'Total King', field: 'total_king', format: formatInteger, iconType: MaterialCommunityIcons, iconName: 'summit', iconColor: 'primary.600' },
   { label: 'Average Flags', field: 'avg_flags', format: formatFloat, iconType: FontAwesome5, iconName: 'flag', iconColor: 'primary.600' },
   { label: 'Total Flags', field: 'total_flags', format: formatInteger, iconType: FontAwesome5, iconName: 'flag-checkered', iconColor: 'primary.600' },
 ];
