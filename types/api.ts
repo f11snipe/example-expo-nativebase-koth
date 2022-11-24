@@ -48,6 +48,8 @@ export interface GameData {
   game_type: GameType;
   king_found: boolean;
   king_changes: number;
+  game_link: string;
+  winner: string;
   resets: number;
   creator_name: string;
   box: BoxData;

@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const {
   // REACT_APP_API_BASE_URL = 'https://koth-api.ngrok.io/api'
-  REACT_APP_API_BASE_URL = 'http://localhost:8000/api'
+  REACT_APP_API_BASE_URL = 'http://localhost:5000/api'
 } = process.env;
 
 
